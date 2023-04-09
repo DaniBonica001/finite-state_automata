@@ -149,7 +149,7 @@ export function createResponseTable(tableId) {
 
   table.append("<th>Salida</th>");
   $.each(states, (index, state) => {
-    console.log(state);
+    
     $(tableId).append("<tr><td>" + state + "</td></tr>");
     var row = $(tableId).find("tr:eq(" + (index + 1) + ")");
 

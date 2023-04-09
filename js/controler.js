@@ -37,6 +37,8 @@ $(document).ready(function () {
   $("#sendMealyTableBtn").click(function () {
     var rows = $("#mealyTable").find("tr");
     var transitions = [];
+    
+
 
     rows.each(function (index, value) {
       $(value)
@@ -48,6 +50,7 @@ $(document).ready(function () {
               .val()
               .split(",")
               .forEach((element) => {
+                tempTransitions.push(element)
                 transitions.push(element);
               });
           }
@@ -59,7 +62,7 @@ $(document).ready(function () {
     mealy.getInitialMachine(
       $("#inputStatesMealy").val().split(","),
       $("#inputAlphabetMealy").val().split(","),
-      transitions
+      tempTransitions
     );
 
     
@@ -68,7 +71,14 @@ $(document).ready(function () {
     
     var p1 = mealy.initialPartition();
     console.log(p1)
+  
+    var finalP = getFinalPartition(p1,mealy.machineMealy.stimulus)
+    console.log(finalP)
 
+    mealy.getInitialMachine(renameStates(finalP,$("#inputStatesMealy").val().split(",")),mealy.machineMealy.stimulus, reNameTransitions(finalP,transitions))
+
+    mealy.createResponseTable("#mealyResultTable")
+    
     changeDiv("resultMealyMachine");
   });
 
@@ -115,7 +125,7 @@ $(document).ready(function () {
     var p1 = moore.initialPartition();
     console.log(p1);
 
-    var finalP = getFinalPartition(p1, moore.machineMoore.stimulus);
+    var finalP = getFinalPartitionMoore(p1, moore.machineMoore.stimulus);
     console.log(finalP);   
 
     moore.getInitialMachine(renameStates(finalP,$("#inputStatesMoore").val().split(",")), moore.machineMoore.stimulus,reNameTransitions(finalP, transitions))
@@ -147,7 +157,7 @@ function changeDiv(target) {
   });
 }
 
-function getFinalPartition(p1, stimulus) {
+function getFinalPartitionMoore(p1, stimulus) {
   console.log("vuelve");
   console.log(p1);
 
@@ -183,6 +193,101 @@ function getFinalPartition(p1, stimulus) {
       for (const input in stimulus) {
         const responseCurrent = representedValue.statesResponse[input];
         const responseNext = nextState.statesResponse[input];
+
+        console.log(responseCurrent);
+        console.log(responseNext);
+
+        var pCurrent = 0;
+        for (let k = 0; k < p1.length; k++) {
+          if (p1[k].includes(responseCurrent)) {
+            pCurrent = k;
+            break;
+          }
+        }
+
+        var pNext = 0;
+        for (let k = 0; k < p1.length; k++) {
+          if (p1[k].includes(responseNext)) {
+            pNext = k;
+            break;
+          }
+        }
+
+        console.log(pCurrent);
+        console.log(pNext);
+
+        if (pCurrent != pNext) {
+          if (keepBlock.length > 1) {
+            console.log("debo comparar con los otros");
+            keepBlock = compareWithKeepBlock(keepBlock,nextState,nextStateName,p1,stimulus)
+          }else{
+            keepBlock.push([nextStateName]);
+          }
+          
+          console.log(keepBlock);
+          break;
+        }
+        c++;
+
+        if (c == stimulus.length) {
+          console.log("entrou");
+          keepBlock[findInNewPartition(representedValueName,keepBlock)].push(nextStateName);
+          console.log(keepBlock);
+        }
+
+        console.log(keepBlock);
+      }
+    }
+    nextPartition = keepBlock;
+    console.log(nextPartition);
+  }
+
+  console.log(nextPartition);
+  console.log("condicion");
+  if (ca.compareArrays(p1, nextPartition) == false) {
+    console.log("entro compare");
+    return getFinalPartition(nextPartition, stimulus);
+  }
+  return nextPartition;
+}
+
+
+function getFinalPartitionMealy(p1, stimulus) {
+  console.log("vuelve");
+  console.log(p1);
+
+  var nextPartition = null;
+
+  var keepBlock = [];
+  for (let i = 0; i < p1.length; i++) {
+    //Gets the block (Array) and a represented value
+    const currentBlock = p1[i];
+    const representedValueName = p1[i][0];
+    const representedValue = mealy.machineMoore.statesMachine[currentBlock[0]];
+
+    console.log(currentBlock);
+    console.log(representedValueName);
+    console.log(representedValue);
+    console.log(keepBlock);
+
+    keepBlock.push([representedValueName]);
+
+    console.log(keepBlock);
+
+    //Iterates over the currentBlock
+    for (let j = 1; j < currentBlock.length; j++) {
+      //Gets the current state and the next state
+      const nextStateName = p1[i][j];
+      const nextState = mealy.machineMoore.statesMachine[currentBlock[j]];
+
+      console.log(nextStateName);
+      console.log(nextState);
+
+      let c = 0;
+
+      for (const input in stimulus) {
+        const responseCurrent = representedValue[input][nextState];        
+        const responseNext = nextState[input][nextState];
 
         console.log(responseCurrent);
         console.log(responseNext);
@@ -316,23 +421,6 @@ function compareWithKeepBlock(keepBlock,nextState,nextName,p1,stimulus) {
   }
   return keepBlock
 }
-
-/*
-
-export var machineMoore = {
-  initialState: "A",
-  stimulus: [0, 1],
-  statesMachine: {
-    A: {
-      response: 0,
-      statesResponse: {
-        0: "A",
-        1: "B",
-      },
-    },
-  },
-};
-*/
 
 function reNameTransitions(finalP, transitions) {
   console.log(finalP);
