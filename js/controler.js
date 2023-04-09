@@ -37,6 +37,7 @@ $(document).ready(function () {
   $("#sendMealyTableBtn").click(function () {
     var rows = $("#mealyTable").find("tr");
     var transitions = [];
+    var tempTransitions = []
     
 
 
@@ -72,7 +73,7 @@ $(document).ready(function () {
     var p1 = mealy.initialPartition();
     console.log(p1)
   
-    var finalP = getFinalPartition(p1,mealy.machineMealy.stimulus)
+    var finalP = getFinalPartitionMealy(p1,mealy.machineMealy.stimulus)
     console.log(finalP)
 
     mealy.getInitialMachine(renameStates(finalP,$("#inputStatesMealy").val().split(",")),mealy.machineMealy.stimulus, reNameTransitions(finalP,transitions))
@@ -263,7 +264,7 @@ function getFinalPartitionMealy(p1, stimulus) {
     //Gets the block (Array) and a represented value
     const currentBlock = p1[i];
     const representedValueName = p1[i][0];
-    const representedValue = mealy.machineMoore.statesMachine[currentBlock[0]];
+    const representedValue = mealy.machineMealy.statesMachine[currentBlock[0]];
 
     console.log(currentBlock);
     console.log(representedValueName);
@@ -278,7 +279,7 @@ function getFinalPartitionMealy(p1, stimulus) {
     for (let j = 1; j < currentBlock.length; j++) {
       //Gets the current state and the next state
       const nextStateName = p1[i][j];
-      const nextState = mealy.machineMoore.statesMachine[currentBlock[j]];
+      const nextState = mealy.machineMealy.statesMachine[currentBlock[j]];
 
       console.log(nextStateName);
       console.log(nextState);

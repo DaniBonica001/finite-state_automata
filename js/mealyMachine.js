@@ -159,8 +159,8 @@ export function initialPartition() {
 }
 
 export function createResponseTable(tableId) {
-  var states = $(inputStates).val();
-  var alphabet = $(inputAlphabet).val();
+  var states = Object.keys(machineMealy.statesMachine);
+  var alphabet = machineMealy.stimulus;
 
   $(tableId).append("<tr><th>States</th></tr>");
 
