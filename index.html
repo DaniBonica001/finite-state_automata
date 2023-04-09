@@ -43,7 +43,8 @@
                     <h2>Máquina Mealy</h2>
                     <form>
                         <div class="justify-content-center">
-                            <label class="form-label">Ingrese los estados de la máquina, el primer estado se asumirá como el estado inicial</label>
+                            <label class="form-label">Ingrese los estados de la máquina, el primer estado se asumirá
+                                como el estado inicial</label>
                             </br>
                             <input id="inputStatesMealy" class="form-control" type="text" placeholder="Estados"></input>
                         </div>
@@ -83,6 +84,24 @@
             </div>
         </div>
 
+        <!--Tabla de respuesta Mealy-->
+        <div class="page" id="resultMealyMachine">
+            <button class="btn btn-secondary backBtn m-5">Volver</button>
+            <div class="row justify-content-center align-items-center vh-100">
+                <div class="col-md-5 col-sm-7 text-center">
+                    <h2>Máquina reducida</h2>
+                    <p>La siguiente máquina es el resultado de aplicar el algoritmo de reducción de estados al autómata
+                        ingresado</p>
+                    <table class="center" id="mealyResultTable"></table>
+                    </br>
+                    <button class="btn btn-primary" id="exitBtn">Salir</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
 
         <!--Máquina de Moore-->
@@ -93,7 +112,8 @@
                     <h2>Máquina Moore</h2>
                     <form>
                         <div class="justify-content-center">
-                            <label class="form-label">Ingrese los estados de la máquina, el primer estado se asumirá como el estado inicial</label>
+                            <label class="form-label">Ingrese los estados de la máquina, el primer estado se asumirá
+                                como el estado inicial</label>
                             </br>
                             <input id="inputStatesMoore" class="form-control" type="text" placeholder="Estados"></input>
                         </div>
@@ -123,13 +143,32 @@
             <div class="row justify-content-center align-items-center vh-100">
                 <div class="col-md-5 col-sm-7 text-center">
                     <h2>Tabla de estados</h2>
-                    <p>Ingrese el estado al cual se moverá el estado actual dependiendo del estimulo. Adicionalmente, ingrese la salida del estado actual</p>
+                    <p>Ingrese el estado al cual se moverá el estado actual dependiendo del estimulo. Adicionalmente,
+                        ingrese la salida del estado actual</p>
                     <table class="center" id="mooreTable"></table>
                     </br>
                     <button class="btn btn-primary" id="sendMooreTableBtn">Enviar</button>
 
                 </div>
             </div>
+        </div>
+
+        <!--Tabla de respuesta Moore-->
+        <div class="page" id="resultMooreMachine">
+            <button class="btn btn-secondary backBtn m-5">Volver</button>
+            <div class="row justify-content-center align-items-center vh-100">
+                <div class="col-md-5 col-sm-7 text-center">
+                    <h2>Máquina reducida</h2>
+                    <p>La siguiente máquina es el resultado de aplicar el algoritmo de reducción de estados al autómata
+                        ingresado</p>
+                    <table class="center" id="mooreResultTable"></table>
+                    </br>
+                    <button class="btn btn-primary" id="exitBtn">Salir</button>
+
+                </div>
+
+            </div>
+
         </div>
 
 
@@ -141,7 +180,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
         </script>
-    <script type="module"src="js/controler.js"></script>
+    <script type="module" src="js/controler.js"></script>
 </body>
 
 </html>

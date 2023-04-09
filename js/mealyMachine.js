@@ -63,7 +63,7 @@ export function getInitialMachine(states, inputs,transitions){
             }
         }
     }
-    return machine;
+    console.log(machine)
 }
 
 export function getConnectedMealy()  {
@@ -103,5 +103,71 @@ export function getConnectedMealy()  {
     }
     */
 
+
+}
+//let combinations = []
+
+export function combinationStimulus(stimulus){
+    const states = Object.keys(machineMealy["statesMachine"])
+    let result = []
+    
+
+    for(let s in states){
+        let state = states[s]
+
+        let output = '';
+        for(let i in stimulus){
+            let input = stimulus[i]
+            output += machineMealy["statesMachine"][state][input]["response"]
+        }
+        console.log(output)
+        result.push(output)
+        console.log(result)
+    }  
+    console.log(result)
+    result = deleteDuplicated(result)  
+    console.log(result)
+    return result
+}
+
+export function deleteDuplicated(arr){
+    return arr.filter((item,
+        index) => (arr.indexOf(item) === index))
+}
+
+
+
+
+export function initialPartition(){
+    const states = Object.keys(machineMealy["statesMachine"]);
+    const stimulus = machineMealy["stimulus"]
+    const combinations = combinationStimulus(stimulus)
+    const partition = []
+
+    for (let j = 0;j<combinations.length;j++){
+        partition[j] = []
+    }
+    console.log(partition)
+
+    
+    for (const s in states){
+        let state =  states[s]
+        let output = ''
+
+        for(const i in stimulus){
+            let input = stimulus[i]
+            output += machineMealy["statesMachine"][state][input]["response"]            
+        }
+        console.log(output)
+
+        if(combinations.includes(output)){
+            console.log(combinations.indexOf(output))
+            partition[combinations.indexOf(output)].push(state)
+        }
+        console.log(partition)        
+
+    }
+    console.log(partition)
+    return partition
 
 }
