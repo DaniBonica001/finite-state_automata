@@ -247,7 +247,7 @@ function getFinalPartitionMoore(p1, stimulus) {
   console.log("condicion");
   if (ca.compareArrays(p1, nextPartition) == false) {
     console.log("entro compare");
-    return getFinalPartition(nextPartition, stimulus);
+    return getFinalPartitionMoore(nextPartition, stimulus);
   }
   return nextPartition;
 }
@@ -342,7 +342,7 @@ function getFinalPartitionMealy(p1, stimulus) {
   console.log("condicion");
   if (ca.compareArrays(p1, nextPartition) == false) {
     console.log("entro compare");
-    return getFinalPartition(nextPartition, stimulus);
+    return getFinalPartitionMealy(nextPartition, stimulus);
   }
   return nextPartition;
 }
