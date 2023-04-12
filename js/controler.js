@@ -136,7 +136,9 @@ $(document).ready(function () {
     changeDiv("resultMooreMachine");
   });
 
-  $("#exitBtn").click(function () {
+  $(".exitBtn").click(function () {  
+    console.log("hola")      
+    changeDiv("startPage");
     $("#inputStatesMealy").val("");
     $("#inputAlphabetMealy").val("");
     $("#inputStatesMoore").val("");
@@ -145,8 +147,9 @@ $(document).ready(function () {
     $('#mooreTable').empty()
     $('#mealyResultTable').empty()
     $('#mooreResultTable').empty()
-    changeDiv("startPage");
   });
+
+
 });
 
 function changeDiv(target) {
