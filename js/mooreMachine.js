@@ -1,3 +1,5 @@
+import * as cp from './compareArrays.js';
+
 export var machineMoore = {
   initialState: "A",
   stimulus: [0, 1],
@@ -100,7 +102,7 @@ export function getConnectedMoore() {
 
     c++;
   }
-  /*
+  
     if(!cp.compareArrays(connectedStates, states)){
         for (let j = 0; j < states.length; j++) {
             if(!(connectedStates.includes(states[j]))){
@@ -108,7 +110,7 @@ export function getConnectedMoore() {
             }
         }
     }
-    */
+    
 }
 
 export function initialPartition() {

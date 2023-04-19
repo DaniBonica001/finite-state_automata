@@ -1,3 +1,5 @@
+import * as cp from './compareArrays.js';
+
 export var machineMealy = {
   initialState: "A",
   stimulus: [0, 1],
@@ -88,7 +90,7 @@ export function getConnectedMealy() {
     }
     c++;
   }
-  /*
+  
     if (!cp.compareArrays(connectedStates, states)) {
         for (let j = 0; j < states.length; j++) {
             if (!(connectedStates.includes(states[j]))) {
@@ -97,7 +99,7 @@ export function getConnectedMealy() {
             }
         }
     }
-    */
+    
 }
 //let combinations = []
 
